@@ -13,9 +13,7 @@ let reacting = false
 
 const timeout = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 const recursiveRedditCache = async (subreddit, results, count, after = null) => {
-  if (count === 0) {
-    return results
-  }
+  if (count === 0) return results
   console.log(`Refreshing ${subreddit} cache: ${count} remaining.`)
   const link = `https://www.reddit.com/r/${subreddit}.json?sort=top&t=all&limit=100${after ? `&after=${after}` : ''}`
   const fetchPage = await fetch(link).then(r => r.json()).catch(console.log)
@@ -31,7 +29,7 @@ const recursiveRedditCache = async (subreddit, results, count, after = null) => 
       thumb: d.thumbnail,
       permalink: `https://reddit.com/${d.permalink}`,
       url: d.url,
-      vidurl: d.preview && d.preview.reddit_video_preview ? d.preview && d.preview.reddit_video_preview.fallback_url : null,
+      vidurl: vidurl,
       title: d.title,
       subreddit: d.subreddit_name_prefixed
     })
